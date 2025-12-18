@@ -2,60 +2,58 @@
 <html lang="ur">
 <head>
     <meta charset="UTF-8">
-    <title>Copying Notes...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Notes</title>
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #fdfaf5; }
-        .status { padding: 20px; border-radius: 10px; background: white; border: 2px solid #8b0000; text-align: center; }
+        .box { padding: 30px; border-radius: 15px; background: white; border: 2px solid #8b0000; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 80%; }
+        .btn { background-color: #8b0000; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; width: 100%; }
+        .btn:active { background-color: #5d0000; }
+        #status { margin-top: 15px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="status">
-    <h3 id="msg">Copying Notes...</h3>
-    <p>Please wait a moment.</p>
+<div class="box">
+    <h2 style="color: #8b0000; margin: 0;">Fiqh Notes</h2>
+    <p>Niche diye gaye button par click karke notes copy karein.</p>
+    
+    <button class="btn" onclick="copyNow()">Click to Copy Notes</button>
+    
+    <div id="status"></div>
 </div>
 
-<div id="notesData" style="display: none;">
-(1) Fiqh ki Tareef aur Mauzu
-Fiqh ka ma'ana Lughvi Taur Par kisi cheez ki samjh boojh hasil karna, Cheezon Ko Achi Tarah se gehrai se samajhna ye hei Fiqh.
-
-Istilahı Tareef: Quran-o-Hadees, Ijma, aur Qiyaas ke mutabiq, Shariat Ke Amali Ahkamat Ko Tafseeli Daleelo se maloom karna.
-
-Amali Ahkaamat: Ye shariyat ke Ahkamat hai medical science ke Ahkamat nahi hai. Jinka talluq Aqeede ya Akhlaq se nahi hai, balki Aapke Amali Ahkaamat Jaise Namaaz, Roza, Taharat in chizo ko maloom karna dalil ke Saath.
-"Iqra (اقرأ)" (padho) iss baat ki dalil hai ke islam sirf ilm ke saath chala jaa sakta hai.
+<div id="notesText" style="display: none;">
+(1) Fiqh ki Tareef aur Mauzu:
+Fiqh ka ma'ana Lughvi Taur Par kisi cheez ki samjh boojh hasil karna. Istilahi Tareef: Quran-o-Hadees, Ijma, aur Qiyaas ke mutabiq, Shariat Ke Amali Ahkamat Ko Tafseeli Daleelo se maloom karna.
 
 (2) Fiqh ke do Bade Topic:
 (i) Ibadat: Taharat, Namaz, Roza, Zakaat, Hajj, Jihad.
-(ii) Muamalat: Khareedo-frokht, Tijarat, Nikah-Talaq aur Haram-o-Halal ke masail.
+(ii) Muamalat: Khareedo-frokht, Tijarat, Nikah-Talaq aur Haram-o-Halal ke roz-marra ke masail.
 
-3. Ikhtilaf ka hal:-
-(1) Ikhtilaf ka maujood hona: Musalmano ke darmiyan ye ikhtilafat bahut purane hai aur Allah ki taraf se ek Aazmaish hai. Allah chahta to sabhi ko hidayat deta, lekin ye duniya imtihan hai.
-
-(2) Ikhtilafaat me kya farz hai:
-Agar tanaza ho jaye to usko Allah (Quran) Aur uske rasool (Sunnat) ki taraf lotao. Agar tum Allah aur Aakhirat par imaan rakhte ho, to hal Quran aur Hadees se lo.
-
-Allah farmata hai ke Nabi (S.A.W) apni marzi se baat nahi karte, wo Allah ki taraf se hoti hai. Har sunnat par amal karna chaho chahe koi bhi rasta ho.
+(3) Ikhtilaf ka hal:
+Musalmano ke darmiyan aksar masail mein ikhtilafat paaye jaate hain jo Allah ki taraf se ek aazmaish hai. Agar tumhara ikhtilaf ho jaye to usko Allah (Quran) aur uske rasool (Sunnat) ki taraf lotao.
 
 Aimma-e-Kiraam:
-1. Imam Abu Hanifa (R.A): (80 Hijri - 150 Hijri)
-2. Imam Malik (R.A): (93 Hijri - 179 Hijri)
-3. Imam Shafi (R.A): (150 Hijri - 204 Hijri)
-4. Imam Ahmed bin Hanbal (R.A): (164 Hijri - 241 Hijri)
+1. Imam Abu Hanifa (R.A)
+2. Imam Malik (R.A)
+3. Imam Shafi (R.A)
+4. Imam Ahmed bin Hanbal (R.A)
 </div>
 
 <script>
-    window.onload = function() {
-        const textToCopy = document.getElementById('notesData').innerText;
-        const msgElement = document.getElementById('msg');
-
-        navigator.clipboard.writeText(textToCopy).then(() => {
-            msgElement.innerText = "Notes Copied! ✅";
-            msgElement.style.color = "green";
-            // Optional: Close window or redirect after 2 seconds
-            setTimeout(() => { window.history.back(); }, 1500);
+    function copyNow() {
+        const text = document.getElementById('notesText').innerText;
+        const status = document.getElementById('status');
+        
+        navigator.clipboard.writeText(text).then(() => {
+            status.innerText = "Notes Copied! ✅";
+            status.style.color = "green";
+            // 2 second baad wapas Canva par jane ke liye
+            setTimeout(() => { window.history.back(); }, 2000);
         }).catch(err => {
-            msgElement.innerText = "Error copying. Please try again.";
-            msgElement.style.color = "red";
+            status.innerText = "Error! Please try again.";
+            status.style.color = "red";
         });
     }
 </script>
