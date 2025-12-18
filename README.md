@@ -1,78 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="ur">
 <head>
-<style>
-  body { background-color: transparent; margin: 0; padding: 10px; }
-  .notes-card {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #1a1a1a; /* Dark background like your screenshot */
-    color: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  }
-  .header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #444;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-  }
-  .copy-btn {
-    background-color: #8b0000;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-  }
-  .copy-btn:hover { background-color: #a00000; }
-  .content { line-height: 1.6; white-space: pre-wrap; font-size: 15px; }
-  .heading { color: #ffd700; font-size: 18px; font-weight: bold; margin-bottom: 5px; }
-</style>
+    <meta charset="UTF-8">
+    <title>Copying Notes...</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #fdfaf5; }
+        .status { padding: 20px; border-radius: 10px; background: white; border: 2px solid #8b0000; text-align: center; }
+    </style>
 </head>
 <body>
 
-<div class="notes-card">
-  <div class="header-row">
-    <span style="color: #ffd700; font-weight: bold;">Class 00: Fiqh Notes</span>
-    <button class="copy-btn" onclick="copyNotes()">Copy Text</button>
-  </div>
-  
-  <div class="content" id="myNotes">
+<div class="status">
+    <h3 id="msg">Copying Notes...</h3>
+    <p>Please wait a moment.</p>
+</div>
+
+<div id="notesData" style="display: none;">
 (1) Fiqh ki Tareef aur Mauzu
-Fiqh kya hai?
 Fiqh ka ma'ana Lughvi Taur Par kisi cheez ki samjh boojh hasil karna, Cheezon Ko Achi Tarah se gehrai se samajhna ye hei Fiqh.
 
-Istilahı Tareef:
-Quran-o-Hadees, Ijma, aur Qiyaas ke mutabiq, Shariat Ke Amali Ahkamat Ko Tafseeli Daleelo se maloom karna.
+Istilahı Tareef: Quran-o-Hadees, Ijma, aur Qiyaas ke mutabiq, Shariat Ke Amali Ahkamat Ko Tafseeli Daleelo se maloom karna.
 
-Amali Ahkaamat: Ye shariyat ke Ahkamat hai medical science ke Ahkamat nahi hai, aur Amali Ahkaamat hai jiska talluq Aqeede se nahi hai, Jinka talluq Akhlaq se nahi hai, balki Aapke Amali Ahkaamat Jaise Namaaz, Roza, Taharat in chizo ko maloom karna dalil ke Saath.
-
-Quran ka sabse pehla lafz jo nazil hua wo tha "iqra (اقرأ)" (padho), jo iss baat ki dalil hai ke islam wo deen hai jo sirf ilm ke saath chala jaa sakta hai .
+Amali Ahkaamat: Ye shariyat ke Ahkamat hai medical science ke Ahkamat nahi hai. Jinka talluq Aqeede ya Akhlaq se nahi hai, balki Aapke Amali Ahkaamat Jaise Namaaz, Roza, Taharat in chizo ko maloom karna dalil ke Saath.
+"Iqra (اقرأ)" (padho) iss baat ki dalil hai ke islam sirf ilm ke saath chala jaa sakta hai.
 
 (2) Fiqh ke do Bade Topic:
 (i) Ibadat: Taharat, Namaz, Roza, Zakaat, Hajj, Jihad.
-(ii) Muamalat: Khareedo-frokht, Tijarat, Nikah-Talaq aur Haram-o-Halal ke roz-marra ke masail.
-  </div>
+(ii) Muamalat: Khareedo-frokht, Tijarat, Nikah-Talaq aur Haram-o-Halal ke masail.
+
+3. Ikhtilaf ka hal:-
+(1) Ikhtilaf ka maujood hona: Musalmano ke darmiyan ye ikhtilafat bahut purane hai aur Allah ki taraf se ek Aazmaish hai. Allah chahta to sabhi ko hidayat deta, lekin ye duniya imtihan hai.
+
+(2) Ikhtilafaat me kya farz hai:
+Agar tanaza ho jaye to usko Allah (Quran) Aur uske rasool (Sunnat) ki taraf lotao. Agar tum Allah aur Aakhirat par imaan rakhte ho, to hal Quran aur Hadees se lo.
+
+Allah farmata hai ke Nabi (S.A.W) apni marzi se baat nahi karte, wo Allah ki taraf se hoti hai. Har sunnat par amal karna chaho chahe koi bhi rasta ho.
+
+Aimma-e-Kiraam:
+1. Imam Abu Hanifa (R.A): (80 Hijri - 150 Hijri)
+2. Imam Malik (R.A): (93 Hijri - 179 Hijri)
+3. Imam Shafi (R.A): (150 Hijri - 204 Hijri)
+4. Imam Ahmed bin Hanbal (R.A): (164 Hijri - 241 Hijri)
 </div>
 
 <script>
-function copyNotes() {
-  const text = document.getElementById('myNotes').innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.copy-btn');
-    btn.innerText = "Copied! ✅";
-    btn.style.backgroundColor = "#28a745";
-    setTimeout(() => {
-      btn.innerText = "Copy Text";
-      btn.style.backgroundColor = "#8b0000";
-    }, 2000);
-  });
-}
+    window.onload = function() {
+        const textToCopy = document.getElementById('notesData').innerText;
+        const msgElement = document.getElementById('msg');
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            msgElement.innerText = "Notes Copied! ✅";
+            msgElement.style.color = "green";
+            // Optional: Close window or redirect after 2 seconds
+            setTimeout(() => { window.history.back(); }, 1500);
+        }).catch(err => {
+            msgElement.innerText = "Error copying. Please try again.";
+            msgElement.style.color = "red";
+        });
+    }
 </script>
 
 </body>
